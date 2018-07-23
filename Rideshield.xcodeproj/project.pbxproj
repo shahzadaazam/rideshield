@@ -12,6 +12,8 @@
 		B3830F3720DEE08C002D46B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3830F3520DEE08C002D46B3 /* Main.storyboard */; };
 		B3830F3920DEE08C002D46B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3830F3820DEE08C002D46B3 /* Assets.xcassets */; };
 		B3830F3C20DEE08C002D46B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3830F3A20DEE08C002D46B3 /* LaunchScreen.storyboard */; };
+		B3830F4420E07D32002D46B3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F4320E07D32002D46B3 /* SignupViewController.swift */; };
+		B3830F4620E0A985002D46B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F4520E0A985002D46B3 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		B3830F3820DEE08C002D46B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3830F3B20DEE08C002D46B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3830F3D20DEE08C002D46B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3830F4320E07D32002D46B3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		B3830F4520E0A985002D46B3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				B3830F3120DEE08C002D46B3 /* AppDelegate.swift */,
 				B3830F3320DEE08C002D46B3 /* ViewController.swift */,
 				B3830F3520DEE08C002D46B3 /* Main.storyboard */,
+				B3830F4520E0A985002D46B3 /* MainViewController.swift */,
+				B3830F4320E07D32002D46B3 /* SignupViewController.swift */,
 				B3830F3820DEE08C002D46B3 /* Assets.xcassets */,
 				B3830F3A20DEE08C002D46B3 /* LaunchScreen.storyboard */,
 				B3830F3D20DEE08C002D46B3 /* Info.plist */,
@@ -136,8 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3830F4420E07D32002D46B3 /* SignupViewController.swift in Sources */,
 				B3830F3420DEE08C002D46B3 /* ViewController.swift in Sources */,
 				B3830F3220DEE08C002D46B3 /* AppDelegate.swift in Sources */,
+				B3830F4620E0A985002D46B3 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,11 +285,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z44DEC3EU2;
 				INFOPLIST_FILE = Rideshield/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cutr.Rideshield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -292,11 +301,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z44DEC3EU2;
 				INFOPLIST_FILE = Rideshield/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cutr.Rideshield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
