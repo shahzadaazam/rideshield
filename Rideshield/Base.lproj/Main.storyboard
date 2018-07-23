@@ -425,7 +425,7 @@
                                     <constraint firstAttribute="height" constant="316" id="9mB-xK-QhV"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0TN-cz-kFd">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0TN-cz-kFd">
                                 <rect key="frame" x="0.0" y="380" width="414" height="40"/>
                                 <color key="backgroundColor" red="0.13725490196078433" green="0.75294117647058822" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -434,11 +434,8 @@
                                 <state key="normal" title="RIDING">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="kYa-EO-Uev" kind="show" id="3KU-l4-QZT"/>
-                                </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape + Check" translatesAutoresizingMaskIntoConstraints="NO" id="52j-pM-dCV">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape + Check" translatesAutoresizingMaskIntoConstraints="NO" id="52j-pM-dCV">
                                 <rect key="frame" x="20" y="386" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="bjJ-w7-xsp"/>
@@ -462,6 +459,8 @@
                     <navigationItem key="navigationItem" id="DB8-rd-ypB"/>
                     <connections>
                         <outlet property="mapView" destination="BCa-bw-gaL" id="qkc-Pa-r1X"/>
+                        <outlet property="ridingCheck" destination="52j-pM-dCV" id="72L-kT-XVy"/>
+                        <outlet property="ridingNotification" destination="0TN-cz-kFd" id="92l-oq-3cQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HEi-9u-UVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -480,7 +479,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap and hold screen to dismiss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNT-II-DFQ">
-                                <rect key="frame" x="74.666666666666686" y="365" width="266" height="24"/>
+                                <rect key="frame" x="74.666666666666515" y="400" width="266" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -490,7 +489,7 @@
                         <constraints>
                             <constraint firstItem="nO7-Nt-zRe" firstAttribute="bottom" secondItem="4LX-me-uc9" secondAttribute="bottom" id="8rM-GB-Ifz"/>
                             <constraint firstItem="ZNT-II-DFQ" firstAttribute="centerX" secondItem="nO7-Nt-zRe" secondAttribute="centerX" id="Bmf-7I-naQ"/>
-                            <constraint firstItem="ZNT-II-DFQ" firstAttribute="top" secondItem="4LX-me-uc9" secondAttribute="top" constant="301" id="ODL-C1-1YE"/>
+                            <constraint firstItem="ZNT-II-DFQ" firstAttribute="top" secondItem="4LX-me-uc9" secondAttribute="top" constant="380" id="ODL-C1-1YE"/>
                             <constraint firstItem="nO7-Nt-zRe" firstAttribute="leading" secondItem="rIa-7w-UCs" secondAttribute="leading" id="YAE-cl-rzI"/>
                             <constraint firstAttribute="trailing" secondItem="nO7-Nt-zRe" secondAttribute="trailing" id="dKg-WU-mKL"/>
                             <constraint firstItem="nO7-Nt-zRe" firstAttribute="top" secondItem="rIa-7w-UCs" secondAttribute="top" id="dtR-k8-mJq"/>
