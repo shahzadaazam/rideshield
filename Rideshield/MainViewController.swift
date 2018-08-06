@@ -139,7 +139,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 }
                 
                 //Crash Detection
-                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && self.isAutomotive
+                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && !self.isAutomotive
                 {
                     print("Crash detected!")
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
