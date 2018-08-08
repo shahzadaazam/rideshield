@@ -15,6 +15,8 @@ import CoreLocation
 class MainViewController : UIViewController, CLLocationManagerDelegate {
     
     //Instance variables
+    
+    //Acceleration
     var currentAccX: Double = 0.0
     var currentAccY: Double = 0.0
     var currentAccZ: Double = 0.0
@@ -22,6 +24,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     var currentMaxAccelY: Double = 0.0
     var currentMaxAccelZ: Double = 0.0
     
+    //Rotation
     var currentRotX: Double = 0.0
     var currentRotY: Double = 0.0
     var currentRotZ: Double = 0.0
@@ -29,19 +32,30 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     var currentMaxRotY: Double = 0.0
     var currentMaxRotZ: Double = 0.0
     
+    //Motion
     var isAutomotive: Bool = false
     var isStationary: Bool = false
     var isUnknown: Bool = false
     
     var motionManager = CMMotionManager()
     
+    //Location
+    let locationManager = CLLocationManager()
+    var startLocation: CLLocation!
+    var lastLocation: CLLocation!
+    var traveledDistance: Double = 0
+    
     //Outlets
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var ridingNotification: UIButton!
     @IBOutlet var ridingCheck: UIImageView!
+    @IBOutlet var speedMetric: UILabel!
+    @IBOutlet var distanceMetric: UILabel!
+    @IBOutlet var gforceMetric: UILabel!
+    @IBOutlet var leanangleMetric: UILabel!
     
-    let locationManager = CLLocationManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +63,12 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         //Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.distanceFilter = 10
+        
+        
         
         //Sensors
     
@@ -78,6 +97,9 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
             if let myData = data
             {
                 self.currentRotX = myData.rotationRate.x
+                //Printing lean angle
+                self.leanangleMetric.text = String(self.currentRotX)
+                
                 if fabs(myData.rotationRate.x) > fabs(self.currentMaxRotX)
                 {
                     self.currentMaxRotX = myData.rotationRate.x
@@ -121,6 +143,15 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 }
                 //print(myData)
                 
+                //Displaying total Gforce metric
+                self.gforceMetric.text = String((pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot())
+                
+                //Displaying speed metric
+                //Change to mph
+                self.speedMetric.text = String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
+                
+                print(String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0))
+                
                 //Riding Detection
                 if (self.isAutomotive)
                 {
@@ -139,7 +170,8 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 }
                 
                 //Crash Detection
-                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && !self.isAutomotive
+                //change the following to absolute gforce calculation
+                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && self.isAutomotive
                 {
                     print("Crash detected!")
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -152,14 +184,26 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations[0]
-        let center = location.coordinate
+        if startLocation == nil {
+            startLocation = locations.first
+        } else if let location = locations.last {
+            traveledDistance += lastLocation.distance(from: location)
+            print("Traveled Distance:",  traveledDistance)
+            print("Straight Distance:", startLocation.distance(from: locations.last!))
+        }
+        lastLocation = locations.last
+ 
+        
+        //let location = locations[0]
+        let center = lastLocation.coordinate
         let span = MKCoordinateSpanMake(0.05, 0.05)
         
         let region = MKCoordinateRegionMake(center, span)
         
         mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true
+    
+        //Displaying distance metric
+        self.distanceMetric.text = String(traveledDistance)
     }
     
     override func didReceiveMemoryWarning() {
