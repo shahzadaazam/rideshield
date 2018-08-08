@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3583BC9211A88A90009762F /* CrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3583BC8211A88A90009762F /* CrashViewController.swift */; };
 		B3830F3220DEE08C002D46B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F3120DEE08C002D46B3 /* AppDelegate.swift */; };
 		B3830F3420DEE08C002D46B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F3320DEE08C002D46B3 /* ViewController.swift */; };
 		B3830F3720DEE08C002D46B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3830F3520DEE08C002D46B3 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3583BC8211A88A90009762F /* CrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashViewController.swift; sourceTree = "<group>"; };
 		B3830F2E20DEE08C002D46B3 /* Rideshield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rideshield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3830F3120DEE08C002D46B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3830F3320DEE08C002D46B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				B3830F3820DEE08C002D46B3 /* Assets.xcassets */,
 				B3830F3A20DEE08C002D46B3 /* LaunchScreen.storyboard */,
 				B3830F3D20DEE08C002D46B3 /* Info.plist */,
+				B3583BC8211A88A90009762F /* CrashViewController.swift */,
 			);
 			path = Rideshield;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				B3830F4420E07D32002D46B3 /* SignupViewController.swift in Sources */,
 				B3830F3420DEE08C002D46B3 /* ViewController.swift in Sources */,
 				B3830F3220DEE08C002D46B3 /* AppDelegate.swift in Sources */,
+				B3583BC9211A88A90009762F /* CrashViewController.swift in Sources */,
 				B3830F4620E0A985002D46B3 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

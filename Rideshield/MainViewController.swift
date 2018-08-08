@@ -97,9 +97,6 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
             if let myData = data
             {
                 self.currentRotX = myData.rotationRate.x
-                //Printing lean angle
-                self.leanangleMetric.text = String(self.currentRotX)
-                
                 if fabs(myData.rotationRate.x) > fabs(self.currentMaxRotX)
                 {
                     self.currentMaxRotX = myData.rotationRate.x
@@ -143,23 +140,32 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 }
                 //print(myData)
                 
-                //Displaying total Gforce metric
-                self.gforceMetric.text = String((pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot())
-                
-                //Displaying speed metric
-                //Change to mph
-                self.speedMetric.text = String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
-                
                 print(String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0))
                 
                 //Riding Detection
-                if (self.isAutomotive)
+                if (!self.isAutomotive)
                 {
                     print("Riding!")
                     self.ridingNotification.setTitle("RIDING", for: .normal)
                     self.ridingNotification.backgroundColor = UIColor(red: 35/255, green: 192/255, blue: 101/255, alpha: 1)
                     self.ridingNotification.isHidden = false
                     self.ridingCheck.isHidden = false
+                    
+                    //Displaying metrics
+                    
+                    //Displaying total Gforce metric
+                    self.gforceMetric.text = String(format: "%.2f", (pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot())
+                    
+                    //Displaying speed metric
+                    //Change to mph
+                    self.speedMetric.text = String(format: "%.2f", self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
+                    
+                    //Displaying distance metric
+                    self.distanceMetric.text = String(format: "%.2f", self.traveledDistance)
+                    
+                    //Printing lean angle
+                    self.leanangleMetric.text = String(format: "%.2f", self.currentRotX)
+                    
                 } else {
                     print("Not Riding!")
                     self.ridingNotification.setTitle("NOT RIDING", for: .normal)
@@ -167,11 +173,17 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                     self.ridingNotification.isHidden = false
                     self.ridingCheck.isHidden = true
                     
+                    //Displaying 0s for metrics
+                    self.gforceMetric.text = String(0.0)
+                    self.speedMetric.text = String(0.0)
+                    self.distanceMetric.text = String(0.0)
+                    self.leanangleMetric.text = String(0.0)
+                    
                 }
                 
                 //Crash Detection
                 //change the following to absolute gforce calculation
-                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && self.isAutomotive
+                if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && !self.isAutomotive
                 {
                     print("Crash detected!")
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -184,26 +196,27 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if startLocation == nil {
-            startLocation = locations.first
-        } else if let location = locations.last {
-            traveledDistance += lastLocation.distance(from: location)
-            print("Traveled Distance:",  traveledDistance)
-            print("Straight Distance:", startLocation.distance(from: locations.last!))
+        if (self.isAutomotive)
+        {
+            if startLocation == nil {
+                startLocation = locations.first
+            } else if let location = locations.last {
+                traveledDistance += lastLocation.distance(from: location)
+                print("Traveled Distance:",  traveledDistance)
+                print("Straight Distance:", startLocation.distance(from: locations.last!))
+            }
+            lastLocation = locations.last
         }
-        lastLocation = locations.last
- 
         
-        //let location = locations[0]
-        let center = lastLocation.coordinate
+        let location = locations[0]
+        let center = location.coordinate
         let span = MKCoordinateSpanMake(0.05, 0.05)
         
         let region = MKCoordinateRegionMake(center, span)
         
         mapView.setRegion(region, animated: true)
-    
-        //Displaying distance metric
-        self.distanceMetric.text = String(traveledDistance)
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
     }
     
     override func didReceiveMemoryWarning() {
