@@ -12,12 +12,13 @@ import UIKit
 class CrashViewController : UIViewController {
     
     @IBOutlet var countdownTimer: UILabel!
-    var count = 15
+    var count = 20
+    var crashTimer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("I'm in crashviewcontroller")
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(CrashViewController.update), userInfo: nil, repeats: true)
+        crashTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(CrashViewController.update), userInfo: nil, repeats: true)
     }
     
     @objc func update()
@@ -27,10 +28,35 @@ class CrashViewController : UIViewController {
             count -= 1
             countdownTimer.text = String(count)
         }
+        else
+        {
+            //Stop timer
+            crashTimer?.invalidate()
+            
+            //Displaying alert
+            let alert = UIAlertController(title: "Hang Tight", message: "Your emergency contacts have been notified of the crash with your exact location. Help should arrive soon.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            
+            //TODO: Code to notify emergency contacts
+            
+            //TODO: Navigating to main screen
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @IBAction func dismissed(_ sender: UILongPressGestureRecognizer) {
+        print("I'm in dismissed function")
+        
+        //Navigating to main screen
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController")
+        self.present(MainViewController, animated: true, completion: nil)
+    }
+    
 }
 

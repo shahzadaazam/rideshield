@@ -140,12 +140,12 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 }
                 //print(myData)
                 
-                print(String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0))
+                //print(String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0))
                 
                 //Riding Detection
                 if (!self.isAutomotive)
                 {
-                    print("Riding!")
+                    //print("Riding!")
                     self.ridingNotification.setTitle("RIDING", for: .normal)
                     self.ridingNotification.backgroundColor = UIColor(red: 35/255, green: 192/255, blue: 101/255, alpha: 1)
                     self.ridingNotification.isHidden = false

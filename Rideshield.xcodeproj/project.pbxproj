@@ -64,11 +64,11 @@
 				B3830F3320DEE08C002D46B3 /* ViewController.swift */,
 				B3830F3520DEE08C002D46B3 /* Main.storyboard */,
 				B3830F4520E0A985002D46B3 /* MainViewController.swift */,
+				B3583BC8211A88A90009762F /* CrashViewController.swift */,
 				B3830F4320E07D32002D46B3 /* SignupViewController.swift */,
 				B3830F3820DEE08C002D46B3 /* Assets.xcassets */,
 				B3830F3A20DEE08C002D46B3 /* LaunchScreen.storyboard */,
 				B3830F3D20DEE08C002D46B3 /* Info.plist */,
-				B3583BC8211A88A90009762F /* CrashViewController.swift */,
 			);
 			path = Rideshield;
 			sourceTree = "<group>";
