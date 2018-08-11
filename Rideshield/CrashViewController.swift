@@ -33,15 +33,15 @@ class CrashViewController : UIViewController {
             //Stop timer
             crashTimer?.invalidate()
             
-            //Displaying alert
-            let alert = UIAlertController(title: "Hang Tight", message: "Your emergency contacts have been notified of the crash with your exact location. Help should arrive soon.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-            
             //TODO: Code to notify emergency contacts
             
-            //TODO: Navigating to main screen
-            
+            //Displaying alert
+            let alert = UIAlertController(title: "Hang Tight", message: "Your emergency contacts have been notified of the crash with your exact location. Help should arrive soon.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                //Navigating to main screen
+                self.backToMain()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -53,6 +53,10 @@ class CrashViewController : UIViewController {
         print("I'm in dismissed function")
         
         //Navigating to main screen
+        backToMain()
+    }
+    
+    func backToMain() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let MainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController")
         self.present(MainViewController, animated: true, completion: nil)
