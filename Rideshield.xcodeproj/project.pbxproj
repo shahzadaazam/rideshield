@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E1121D1007E1EB7A377839A /* Pods_Rideshield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */; };
 		B3583BC9211A88A90009762F /* CrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3583BC8211A88A90009762F /* CrashViewController.swift */; };
+		B3583BCB212005EF0009762F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3583BCA212005EF0009762F /* GoogleService-Info.plist */; };
 		B3830F3220DEE08C002D46B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F3120DEE08C002D46B3 /* AppDelegate.swift */; };
 		B3830F3420DEE08C002D46B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F3320DEE08C002D46B3 /* ViewController.swift */; };
 		B3830F3720DEE08C002D46B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3830F3520DEE08C002D46B3 /* Main.storyboard */; };
@@ -18,7 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02536A2EDF129B538DB434DF /* Pods-Rideshield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideshield.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield.release.xcconfig"; sourceTree = "<group>"; };
+		0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rideshield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideshield.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield.debug.xcconfig"; sourceTree = "<group>"; };
 		B3583BC8211A88A90009762F /* CrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashViewController.swift; sourceTree = "<group>"; };
+		B3583BCA212005EF0009762F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3830F2E20DEE08C002D46B3 /* Rideshield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rideshield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3830F3120DEE08C002D46B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3830F3320DEE08C002D46B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E1121D1007E1EB7A377839A /* Pods_Rideshield.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B6DB80FE0B6111C49A14D81 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3830F2520DEE08B002D46B3 = {
 			isa = PBXGroup;
 			children = (
 				B3830F3020DEE08C002D46B3 /* Rideshield */,
 				B3830F2F20DEE08C002D46B3 /* Products */,
+				D1E798F3A85838ADD47C389B /* Pods */,
+				8B6DB80FE0B6111C49A14D81 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,8 +86,18 @@
 				B3830F3820DEE08C002D46B3 /* Assets.xcassets */,
 				B3830F3A20DEE08C002D46B3 /* LaunchScreen.storyboard */,
 				B3830F3D20DEE08C002D46B3 /* Info.plist */,
+				B3583BCA212005EF0009762F /* GoogleService-Info.plist */,
 			);
 			path = Rideshield;
+			sourceTree = "<group>";
+		};
+		D1E798F3A85838ADD47C389B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */,
+				02536A2EDF129B538DB434DF /* Pods-Rideshield.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,9 +107,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3830F4020DEE08C002D46B3 /* Build configuration list for PBXNativeTarget "Rideshield" */;
 			buildPhases = (
+				B4401330D2C77D92048FBB35 /* [CP] Check Pods Manifest.lock */,
 				B3830F2A20DEE08C002D46B3 /* Sources */,
 				B3830F2B20DEE08C002D46B3 /* Frameworks */,
 				B3830F2C20DEE08C002D46B3 /* Resources */,
+				275540DFC31EFF7BEB2FFED5 /* [CP] Embed Pods Frameworks */,
+				642D57B1DEB4C4AFEAEE7966 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,12 +163,116 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3830F3C20DEE08C002D46B3 /* LaunchScreen.storyboard in Resources */,
+				B3583BCB212005EF0009762F /* GoogleService-Info.plist in Resources */,
 				B3830F3920DEE08C002D46B3 /* Assets.xcassets in Resources */,
 				B3830F3720DEE08C002D46B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		275540DFC31EFF7BEB2FFED5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		642D57B1DEB4C4AFEAEE7966 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4401330D2C77D92048FBB35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rideshield-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B3830F2A20DEE08C002D46B3 /* Sources */ = {
@@ -284,6 +418,7 @@
 		};
 		B3830F4120DEE08C002D46B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +435,7 @@
 		};
 		B3830F4220DEE08C002D46B3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02536A2EDF129B538DB434DF /* Pods-Rideshield.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
