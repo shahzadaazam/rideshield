@@ -22,7 +22,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash2" translatesAutoresizingMaskIntoConstraints="NO" id="fzs-pO-MEC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHL-dM-kNb">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHL-dM-kNb">
                                 <rect key="frame" x="20" y="562" width="335" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="zvj-d7-Y0y"/>
@@ -30,9 +30,6 @@
                                 <state key="normal" title="LOG IN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="rM8-qr-b1T" kind="show" id="uhB-gt-byr"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryD-Yr-BjH">
                                 <rect key="frame" x="20" y="477" width="335" height="55"/>
@@ -40,12 +37,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="gR7-fe-S5R"/>
                                 </constraints>
-                                <state key="normal" title="SIGN UP">
+                                <state key="normal" title="SIGN IN WITH GOOGLE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="fKb-PL-iJP" kind="show" id="oLg-wY-iMd"/>
-                                </connections>
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WpV-TI-OUd">
                                 <rect key="frame" x="168" y="400" width="39" height="37"/>
@@ -54,18 +48,27 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLM-ws-XID">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="372"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybJ-fq-NV3" customClass="FUIAuthSignInButton">
-                                <rect key="frame" x="168" y="617" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uz8-9K-Amt">
+                                <rect key="frame" x="20" y="562" width="335" height="55"/>
+                                <color key="backgroundColor" red="0.23529411759999999" green="0.34901960780000002" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="hFe-WE-o1i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="LOG IN WITH FACEBOOK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vHL-dM-kNb" secondAttribute="bottom" constant="50" id="271-jK-oFb"/>
+                            <constraint firstItem="Uz8-9K-Amt" firstAttribute="trailing" secondItem="vHL-dM-kNb" secondAttribute="trailing" id="2b3-jN-mdC"/>
+                            <constraint firstItem="Uz8-9K-Amt" firstAttribute="leading" secondItem="vHL-dM-kNb" secondAttribute="leading" id="5fR-Nl-ZDK"/>
                             <constraint firstItem="WpV-TI-OUd" firstAttribute="centerX" secondItem="ryD-Yr-BjH" secondAttribute="centerX" id="5p8-gT-nBx"/>
                             <constraint firstItem="WpV-TI-OUd" firstAttribute="top" secondItem="xLM-ws-XID" secondAttribute="bottom" constant="28" id="C93-Zy-G5p"/>
                             <constraint firstItem="vHL-dM-kNb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="EEc-0P-GG3"/>
+                            <constraint firstItem="Uz8-9K-Amt" firstAttribute="baseline" secondItem="vHL-dM-kNb" secondAttribute="baseline" id="EJ2-iy-WdJ"/>
                             <constraint firstItem="vHL-dM-kNb" firstAttribute="top" secondItem="ryD-Yr-BjH" secondAttribute="bottom" constant="30" id="Ebr-4A-e21"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vHL-dM-kNb" secondAttribute="trailing" constant="20" id="VRe-3k-KXd"/>
                             <constraint firstItem="xLM-ws-XID" firstAttribute="trailing" secondItem="fzs-pO-MEC" secondAttribute="trailing" id="Xjq-8T-LTS"/>
@@ -77,11 +80,13 @@
                             <constraint firstItem="fzs-pO-MEC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="rPI-aS-5wQ"/>
                             <constraint firstItem="xLM-ws-XID" firstAttribute="leading" secondItem="fzs-pO-MEC" secondAttribute="leading" id="wXb-qn-QFm"/>
                             <constraint firstItem="ryD-Yr-BjH" firstAttribute="top" secondItem="WpV-TI-OUd" secondAttribute="bottom" constant="40" id="xVc-WI-dCD"/>
+                            <constraint firstItem="Uz8-9K-Amt" firstAttribute="top" secondItem="ryD-Yr-BjH" secondAttribute="bottom" constant="30" id="xbo-4M-Syo"/>
                             <constraint firstItem="fzs-pO-MEC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zzO-6h-aHZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="googleSignIn" destination="ryD-Yr-BjH" id="fbT-MX-3bH"/>
                         <outlet property="loginButton" destination="vHL-dM-kNb" id="vJw-dr-nXP"/>
                         <outlet property="pageControl" destination="WpV-TI-OUd" id="7ed-Sf-7hZ"/>
                         <outlet property="scrollView" destination="xLM-ws-XID" id="ynU-rO-sXO"/>
@@ -89,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
+            <point key="canvasLocation" x="135.19999999999999" y="132.68365817091455"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="pMx-Z4-HxX">
@@ -642,7 +647,7 @@
         <image name="splash2" width="640" height="1136"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OeK-4D-Xle"/>
-        <segue reference="jLu-pP-jdc"/>
+        <segue reference="XDp-Rh-5VU"/>
+        <segue reference="sYe-MB-nbt"/>
     </inferredMetricsTieBreakers>
 </document>

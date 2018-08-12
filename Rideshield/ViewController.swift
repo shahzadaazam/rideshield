@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
-class ViewController: UIViewController, UIScrollViewDelegate {
-
+class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegate {
     
-
+    @IBOutlet var googleSignIn: UIButton!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var pageControl: UIPageControl!
@@ -92,6 +93,24 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         subheading3.frame = CGRect(x: (scrollView.frame.width * 2) + scrollView.frame.midX-245, y: (scrollView.frame.height/2)+50, width: 300, height: 20)
 
         scrollView.contentSize = CGSize(width: scrollView.frame.width*3.0, height: 60)
+        
+        //Connecting google sign in button
+        googleSignIn.addTarget(self, action: #selector(handleCustomGoogleSignIn), for: .touchUpInside)
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+    }
+    
+    @objc func handleCustomGoogleSignIn()
+    {
+        GIDSignIn.sharedInstance().signIn()
+        
+    }
+    
+    func navigateToMain()
+    {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController")
+        self.present(MainViewController, animated: true, completion: nil)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
