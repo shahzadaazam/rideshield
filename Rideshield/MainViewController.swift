@@ -8,11 +8,15 @@
 
 import Foundation
 import UIKit
+import Firebase
 import CoreMotion
 import MapKit
 import CoreLocation
 
 class MainViewController : UIViewController, CLLocationManagerDelegate {
+    
+    //Firestore document reference
+    var docRef: DocumentReference!
     
     //Instance variables
     
@@ -37,6 +41,9 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     var isStationary: Bool = false
     var isUnknown: Bool = false
     
+    //Crash
+    var didCrash: Bool = false
+    
     var motionManager = CMMotionManager()
     
     //Location
@@ -60,6 +67,12 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Firebase firestore
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let timestamp = NSDate().timeIntervalSince1970
+        //docRef = Firestore.firestore().collection(String(uid)).document(String(timestamp))
+        docRef = Firestore.firestore().collection("data").document("test")
+        
         //Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -67,8 +80,6 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.distanceFilter = 10
-        
-        
         
         //Sensors
     
@@ -166,6 +177,42 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                     //Printing lean angle
                     self.leanangleMetric.text = String(format: "%.2f", self.currentRotX)
                     
+                    
+                    //Firestore
+                    
+                    //Preparing data for logging
+                    let logData: [String: Any] = [
+                        "accX": self.currentAccX,
+                        "accY": self.currentAccY,
+                        "accZ": self.currentAccZ,
+                        "maxAccelX": self.currentMaxAccelX,
+                        "maxAccelY": self.currentMaxAccelY,
+                        "maxAccelZ": self.currentMaxAccelZ,
+                        
+                        "rotX": self.currentRotX,
+                        "rotY": self.currentRotY,
+                        "rotZ": self.currentRotZ,
+                        "maxRotX": self.currentMaxRotX,
+                        "maxRotY": self.currentMaxRotY,
+                        "maxRotZ": self.currentMaxRotZ,
+                        
+                        "didCrash": self.didCrash,
+                        "isAutomotive": self.isAutomotive,
+                    ]
+                    
+                    //Logging data to Firestore
+                    print("Im here")
+                    self.docRef.setData(logData, completion: { (error) in
+                        if let error = error {
+                            print("Error in logging data to firestore: ", error)
+                        }
+                        else
+                        {
+                            print("Data has been saved to firestore!")
+                        }
+                    })
+                    
+                    
                 } else {
                     print("Not Riding!")
                     self.ridingNotification.setTitle("NOT RIDING", for: .normal)
@@ -186,6 +233,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && !self.isAutomotive
                 {
                     print("Crash detected!")
+                    self.didCrash = true;
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
                     self.present(CrashViewController, animated: true, completion: nil)

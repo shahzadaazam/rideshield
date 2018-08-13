@@ -6,6 +6,7 @@ target 'Rideshield' do
   use_frameworks!
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
 
