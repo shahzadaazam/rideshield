@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -43,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
+        //Facebook login code
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        //Google sign in code
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         // Override point for customization after application launch.
@@ -50,10 +55,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+
+        //Facebook login code
+        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        
+        //Google sign in code
         GIDSignIn.sharedInstance().handle(url,
                                           sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                           annotation: [:])
-        return true //???
+        return handled
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

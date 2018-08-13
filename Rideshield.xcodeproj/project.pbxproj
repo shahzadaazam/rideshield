@@ -25,6 +25,7 @@
 		2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideshield.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield.debug.xcconfig"; sourceTree = "<group>"; };
 		B3583BC8211A88A90009762F /* CrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashViewController.swift; sourceTree = "<group>"; };
 		B3583BCA212005EF0009762F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B3583BCC2121168B0009762F /* Rideshield.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rideshield.entitlements; sourceTree = "<group>"; };
 		B3830F2E20DEE08C002D46B3 /* Rideshield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rideshield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3830F3120DEE08C002D46B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3830F3320DEE08C002D46B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		B3830F3020DEE08C002D46B3 /* Rideshield */ = {
 			isa = PBXGroup;
 			children = (
+				B3583BCC2121168B0009762F /* Rideshield.entitlements */,
 				B3830F3120DEE08C002D46B3 /* AppDelegate.swift */,
 				B3830F3320DEE08C002D46B3 /* ViewController.swift */,
 				B3830F3520DEE08C002D46B3 /* Main.storyboard */,
@@ -136,6 +138,11 @@
 					B3830F2D20DEE08C002D46B3 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -387,6 +394,7 @@
 			baseConfigurationReference = 2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Rideshield/Rideshield.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z44DEC3EU2;
 				INFOPLIST_FILE = Rideshield/Info.plist;
@@ -404,6 +412,7 @@
 			baseConfigurationReference = 02536A2EDF129B538DB434DF /* Pods-Rideshield.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Rideshield/Rideshield.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z44DEC3EU2;
 				INFOPLIST_FILE = Rideshield/Info.plist;

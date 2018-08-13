@@ -9,9 +9,11 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKLoginKit
 
-class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegate {
+class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     
+    @IBOutlet var fbLoginButton: UIButton!
     @IBOutlet var googleSignIn: UIButton!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var scrollView: UIScrollView!
@@ -97,12 +99,71 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
         //Connecting google sign in button
         googleSignIn.addTarget(self, action: #selector(handleCustomGoogleSignIn), for: .touchUpInside)
         
+        //Connecting facebook login button
+        fbLoginButton.addTarget(self, action: #selector(customFbLoginButtonClicked), for: .touchUpInside)
+        //let facebookLoginButton = FBSDKLoginButton()
+        //view.addSubview(facebookLoginButton)
+        //facebookLoginButton.frame = CGRect(x: 16, y: 550, width: view.frame.width - 32, height: 55)
+        
+        //facebookLoginButton.delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
     }
     
     @objc func handleCustomGoogleSignIn()
     {
         GIDSignIn.sharedInstance().signIn()
+        
+    }
+    
+    @objc func customFbLoginButtonClicked()
+    {
+        let manager = FBSDKLoginManager()
+        manager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            print("Successfully logged in with facebook")
+            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+                if let error = error {
+                    print("Error while logging in to Firebase using facebook login: ", error)
+                    return
+                }
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                print("Successfully logged into Firebase with Facebook: ", uid)
+                self.navigateToMain()
+            }
+            
+            
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Did log out of facebook")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        print("Successfully logged in with facebook")
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if let error = error {
+                print("Error while logging in to Firebase using facebook login: ", error)
+                return
+            }
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            print("Successfully logged into Firebase with Facebook: ", uid)
+            self.navigateToMain()
+        }
+    }
+    
+    @objc func handleCustomFbLogin()
+    {
         
     }
     
