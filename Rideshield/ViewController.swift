@@ -101,18 +101,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
         
         //Connecting facebook login button
         fbLoginButton.addTarget(self, action: #selector(customFbLoginButtonClicked), for: .touchUpInside)
-        //let facebookLoginButton = FBSDKLoginButton()
-        //view.addSubview(facebookLoginButton)
-        //facebookLoginButton.frame = CGRect(x: 16, y: 550, width: view.frame.width - 32, height: 55)
         
-        //facebookLoginButton.delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
     }
     
     @objc func handleCustomGoogleSignIn()
     {
         GIDSignIn.sharedInstance().signIn()
-        
     }
     
     @objc func customFbLoginButtonClicked()
@@ -160,11 +155,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
             print("Successfully logged into Firebase with Facebook: ", uid)
             self.navigateToMain()
         }
-    }
-    
-    @objc func handleCustomFbLogin()
-    {
-        
     }
     
     func navigateToMain()
