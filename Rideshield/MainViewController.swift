@@ -15,10 +15,10 @@ import CoreLocation
 
 class MainViewController : UIViewController, CLLocationManagerDelegate {
     
-    //Firestore document reference
-    var docRef: DocumentReference!
-    
     //Instance variables
+    var timer = Timer()
+    var logData = [String: Any]()
+    var timerFlag = false
     
     //Acceleration
     var currentAccX: Double = 0.0
@@ -52,6 +52,12 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     var lastLocation: CLLocation!
     var traveledDistance: Double = 0
     
+    //Other Metrics
+    var currentSpeed: Double = 0.0
+    var totalDistance: Double = 0.0
+    var currentAbsoluteGforce: Double = 0.0
+    var currentLeanAngle: Double = 0.0
+    
     //Outlets
     
     @IBOutlet var mapView: MKMapView!
@@ -67,11 +73,20 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Timer
+        scheduledTimerWithTimeInterval()
+        
         //Firebase firestore
+        let settings = FirestoreSettings()
+        settings.isPersistenceEnabled = false
+        
+        let db = Firestore.firestore()
+        db.settings = settings
+        
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let timestamp = NSDate().timeIntervalSince1970
+        //var timestamp = NSDate().timeIntervalSince1970
         //docRef = Firestore.firestore().collection(String(uid)).document(String(timestamp))
-        docRef = Firestore.firestore().collection("data").document("test")
+        //docRef = Firestore.firestore().collection("data").document("test")
         
         //Location
         locationManager.delegate = self
@@ -165,11 +180,14 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                     //Displaying metrics
                     
                     //Displaying total Gforce metric
-                    self.gforceMetric.text = String(format: "%.2f", (pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot())
+                    self.currentAbsoluteGforce = (pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot()
+                    self.gforceMetric.text = String(format: "%.2f", self.currentAbsoluteGforce)
                     
                     //Displaying speed metric
                     //Change to mph
-                    self.speedMetric.text = String(format: "%.2f", self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
+                    self.currentSpeed = self.locationManager.location?.speed == -1 ? 0.0 : (self.locationManager.location?.speed)!*2.2369
+                    //self.speedMetric.text = String(format: "%.2f", self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
+                    self.speedMetric.text = String(format: "%.2f", self.currentSpeed)
                     
                     //Displaying distance metric
                     self.distanceMetric.text = String(format: "%.2f", self.traveledDistance)
@@ -181,7 +199,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                     //Firestore
                     
                     //Preparing data for logging
-                    let logData: [String: Any] = [
+                    self.logData = [
                         "accX": self.currentAccX,
                         "accY": self.currentAccY,
                         "accZ": self.currentAccZ,
@@ -198,22 +216,27 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                         
                         "didCrash": self.didCrash,
                         "isAutomotive": self.isAutomotive,
+                        "currentSpeed": self.currentSpeed,
+                        "currentAbsoluteGforce": self.currentAbsoluteGforce,
+                        "distanceTraveled": self.traveledDistance,
+                        
                     ]
                     
-                    //Logging data to Firestore
-                    print("Im here")
-                    self.docRef.setData(logData, completion: { (error) in
-                        if let error = error {
-                            print("Error in logging data to firestore: ", error)
+                    //Logging data to Firestore as per set timer interval
+                    if (self.timerFlag == true)
+                    {
+                        db.collection(String(uid)).document(String(NSDate().timeIntervalSince1970)).setData(self.logData) { err in
+                            if let err = err {
+                                print("Error adding document: \(err)")
+                            } else {
+                                print("Document added")
+                            }
                         }
-                        else
-                        {
-                            print("Data has been saved to firestore!")
-                        }
-                    })
-                    
+                        self.timerFlag = false
+                    }
                     
                 } else {
+                    
                     print("Not Riding!")
                     self.ridingNotification.setTitle("NOT RIDING", for: .normal)
                     self.ridingNotification.backgroundColor = UIColor.red
@@ -265,6 +288,19 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         mapView.setRegion(region, animated: true)
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
+    }
+    
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function "updateFlag" with the interval of 5 seconds
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateFlag), userInfo: nil, repeats: true)
+        //print("Im in timer function")
+    }
+    
+    @objc func updateFlag()
+    {
+        //print("Im in Flag update function pre. Flag is: ", timerFlag)
+        timerFlag = (timerFlag == false) ? true : false
+        //print("Im in Flag update function post. Flag is: ", timerFlag)
     }
     
     override func didReceiveMemoryWarning() {
