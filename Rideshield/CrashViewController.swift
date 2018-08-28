@@ -8,23 +8,32 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class CrashViewController : UIViewController {
     
     @IBOutlet var countdownTimer: UILabel!
     var count = 20
+    var dismissed = false
     var crashTimer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Testing
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    
         print("I'm in crashviewcontroller")
-        crashTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(CrashViewController.update), userInfo: nil, repeats: true)
+        if crashTimer == nil {
+            crashTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(CrashViewController.update), userInfo: nil, repeats: true)
+        }
     }
     
     @objc func update()
     {
         if (count > 0)
         {
+            print("I'm in update if")
             count -= 1
             countdownTimer.text = String(count)
         }
@@ -32,8 +41,32 @@ class CrashViewController : UIViewController {
         {
             //Stop timer
             crashTimer?.invalidate()
+            print("I'm in update else")
             
-            //TODO: Code to notify emergency contacts
+            //Code to notify emergency contacts using Alamofire
+            let user = "ACbd6bed42bef062e4e8f074e021da70fa"
+            let password = "9c85816f333599a3fdc0c5cfd3b582be"
+            
+            let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
+            print("credentialData: ", credentialData)
+            
+            let base64Credentials = credentialData.base64EncodedString()
+            print("base64Credentials: ", base64Credentials)
+            
+            let headers = [
+                "authorization": "Basic \(base64Credentials)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            ]
+            
+            let parameters: Parameters = [
+                "To": "+18134814474",
+                "From": "+18135318998",
+                "Body": "Hello from RideShield"
+            ]
+            
+            Alamofire.request("https://api.twilio.com/2010-04-01/Accounts/ACbd6bed42bef062e4e8f074e021da70fa/Messages.json", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                print(response)
+            }
             
             //Displaying alert
             let alert = UIAlertController(title: "Hang Tight", message: "Your emergency contacts have been notified of the crash with your exact location. Help should arrive soon.", preferredStyle: .alert)
@@ -52,8 +85,18 @@ class CrashViewController : UIViewController {
     @IBAction func dismissed(_ sender: UILongPressGestureRecognizer) {
         print("I'm in dismissed function")
         
-        //Navigating to main screen
-        backToMain()
+        if dismissed == false
+        {
+            dismissed = true
+            print("I'm in dismissed if")
+            
+            //Stop timer
+            crashTimer?.invalidate()
+            crashTimer = nil
+            
+            //Navigating to main screen
+            self.backToMain()
+        }
     }
     
     func backToMain() {

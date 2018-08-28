@@ -12,11 +12,12 @@ import Firebase
 import CoreMotion
 import MapKit
 import CoreLocation
+import Alamofire
 
 class MainViewController : UIViewController, CLLocationManagerDelegate {
     
     //Instance variables
-    var timer = Timer()
+    var timer: Timer?
     var logData = [String: Any]()
     var timerFlag = false
     
@@ -51,6 +52,8 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     var startLocation: CLLocation!
     var lastLocation: CLLocation!
     var traveledDistance: Double = 0
+    var latitude: String = ""
+    var longitude: String = ""
     
     //Other Metrics
     var currentSpeed: Double = 0.0
@@ -73,6 +76,10 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+        print("I'm in viewdidload")
+        
         //Timer
         scheduledTimerWithTimeInterval()
         
@@ -84,9 +91,6 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         db.settings = settings
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        //var timestamp = NSDate().timeIntervalSince1970
-        //docRef = Firestore.firestore().collection(String(uid)).document(String(timestamp))
-        //docRef = Firestore.firestore().collection("data").document("test")
         
         //Location
         locationManager.delegate = self
@@ -220,6 +224,9 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                         "currentAbsoluteGforce": self.currentAbsoluteGforce,
                         "distanceTraveled": self.traveledDistance,
                         
+                        "latitude": self.latitude,
+                        "longitude": self.longitude,
+                        
                     ]
                     
                     //Logging data to Firestore as per set timer interval
@@ -255,11 +262,18 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                 //change the following to absolute gforce calculation
                 if (fabs(myData.acceleration.x) > 8.0 || fabs(myData.acceleration.y) > 8.0 || fabs(myData.acceleration.z) > 8.0) && !self.isAutomotive
                 {
-                    print("Crash detected!")
-                    self.didCrash = true;
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
-                    self.present(CrashViewController, animated: true, completion: nil)
+                    if self.didCrash == false
+                    {
+                        //Stopping timer
+                        self.timer?.invalidate()
+                        self.timer = nil
+                        
+                        print("Crash detected!")
+                        self.didCrash = true;
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
+                        self.present(CrashViewController, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -281,6 +295,8 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         
         let location = locations[0]
         let center = location.coordinate
+        latitude = String(center.latitude)
+        longitude = String(center.longitude)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         
         let region = MKCoordinateRegionMake(center, span)
@@ -292,15 +308,17 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     
     func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function "updateFlag" with the interval of 5 seconds
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateFlag), userInfo: nil, repeats: true)
-        //print("Im in timer function")
+        if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateFlag), userInfo: nil, repeats: true)
+        }
+        print("Im in timer function")
     }
     
     @objc func updateFlag()
     {
-        //print("Im in Flag update function pre. Flag is: ", timerFlag)
+        print("Im in Flag update function pre. Flag is: ", timerFlag)
         timerFlag = (timerFlag == false) ? true : false
-        //print("Im in Flag update function post. Flag is: ", timerFlag)
+        print("Im in Flag update function post. Flag is: ", timerFlag)
     }
     
     override func didReceiveMemoryWarning() {

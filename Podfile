@@ -9,6 +9,7 @@ target 'Rideshield' do
   pod 'Firebase/Firestore'
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
+  pod 'Alamofire', '~> 4.7'
 
   # Pods for Rideshield
 

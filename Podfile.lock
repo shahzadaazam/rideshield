@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.2)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -99,6 +100,7 @@ PODS:
   - Protobuf (3.5.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -107,6 +109,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - Bolts
     - BoringSSL
     - FBSDKCoreKit
@@ -130,6 +133,7 @@ SPEC REPOS:
     - Protobuf
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BoringSSL: 60dd24df4af296bf41d78e5841dbb95d75f88c0d
   FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
@@ -152,6 +156,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
 
-PODFILE CHECKSUM: 2eb4fd3b099fa9f760c868e9650e6bb0d43f5dd6
+PODFILE CHECKSUM: b68867f749cf0880b0840726d86ba9781ef9bb3d
 
 COCOAPODS: 1.5.2
