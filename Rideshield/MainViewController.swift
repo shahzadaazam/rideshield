@@ -13,12 +13,15 @@ import CoreMotion
 import MapKit
 import CoreLocation
 import Alamofire
+import Contacts
+import ContactsUI
 
-class MainViewController : UIViewController, CLLocationManagerDelegate {
+class MainViewController : UIViewController, CLLocationManagerDelegate, CNContactPickerDelegate {
     
     //Instance variables
     var timer: Timer?
     var logData = [String: Any]()
+    var contactsDict = [String: [String]]()
     var timerFlag = false
     
     //Acceleration
@@ -76,9 +79,11 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        //self.presentingViewController?.dismiss(animated: true, completion: nil)
         
-        print("I'm in viewdidload")
+        //Testing for contacts selection
+        selectContacts()
+        //Testing ends
         
         //Timer
         scheduledTimerWithTimeInterval()
@@ -270,9 +275,11 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
                         
                         print("Crash detected!")
                         self.didCrash = true;
-                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
-                        self.present(CrashViewController, animated: true, completion: nil)
+                        
+                        self.performSegue(withIdentifier: "mainToCrashSegue", sender: self)
+                        //let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        //let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
+                        //self.present(CrashViewController, animated: true, completion: nil)
                     }
                 }
             }
@@ -319,6 +326,75 @@ class MainViewController : UIViewController, CLLocationManagerDelegate {
         print("Im in Flag update function pre. Flag is: ", timerFlag)
         timerFlag = (timerFlag == false) ? true : false
         print("Im in Flag update function post. Flag is: ", timerFlag)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let crashViewController = segue.destination as! CrashViewController
+        crashViewController.contactsDict = self.contactsDict
+    }
+    
+    func openContacts()
+    {
+        print("I'm in openContacts")
+        let contactPicker = CNContactPickerViewController.init()
+        contactPicker.delegate = self
+        self.present(contactPicker, animated: true, completion: nil)
+    }
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController)
+    {
+        print("I'm in contactPickerCancel")
+        picker.dismiss(animated: true)
+        {
+        
+        }
+    }
+    
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact])
+    {
+        print("I'm in contactPicker")
+        //When user selects any contact
+        
+        for contact in contacts
+        {
+            var phoneNumbersArray: [String] = []
+            let full_name = contact.givenName + " " + contact.familyName
+            
+            for phoneNumber in contact.phoneNumbers
+            {
+//                contactsDict[full_name] = contactsDict[full_name] != "" ? contactsDict[full_name]! + ", " + phoneNumber.value.stringValue : phoneNumber.value.stringValue
+//
+//                print(contactsDict[full_name]!)
+                phoneNumbersArray.append(phoneNumber.value.stringValue)
+            }
+            contactsDict[full_name] = phoneNumbersArray
+        }
+        print(contactsDict)
+    }
+    
+    func selectContacts()
+    {
+        let entityType = CNEntityType.contacts
+        let authStatus = CNContactStore.authorizationStatus(for: entityType)
+        
+        if authStatus == CNAuthorizationStatus.notDetermined
+        {
+            let contactStore = CNContactStore.init()
+            contactStore.requestAccess(for: entityType, completionHandler: { (success, nil) in
+                if success{
+                    print("I'm in success")
+                }
+                else
+                {
+                    print("Not authorized")
+                }
+            })
+        }
+        else if authStatus == CNAuthorizationStatus.authorized
+        {
+            self.openContacts()
+        }
     }
     
     override func didReceiveMemoryWarning() {

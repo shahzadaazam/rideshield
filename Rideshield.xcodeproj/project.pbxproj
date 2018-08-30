@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E1121D1007E1EB7A377839A /* Pods_Rideshield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */; };
+		B350BF8F213634CB0089E2CC /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B350BF8D213634CA0089E2CC /* Contacts.framework */; };
+		B350BF90213634CB0089E2CC /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B350BF8E213634CA0089E2CC /* ContactsUI.framework */; };
 		B3583BC9211A88A90009762F /* CrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3583BC8211A88A90009762F /* CrashViewController.swift */; };
 		B3583BCB212005EF0009762F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3583BCA212005EF0009762F /* GoogleService-Info.plist */; };
 		B3830F3220DEE08C002D46B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3830F3120DEE08C002D46B3 /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 		02536A2EDF129B538DB434DF /* Pods-Rideshield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideshield.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield.release.xcconfig"; sourceTree = "<group>"; };
 		0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rideshield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C54699E7038258D5B2B30B3 /* Pods-Rideshield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rideshield.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rideshield/Pods-Rideshield.debug.xcconfig"; sourceTree = "<group>"; };
+		B350BF8D213634CA0089E2CC /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		B350BF8E213634CA0089E2CC /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		B3583BC8211A88A90009762F /* CrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashViewController.swift; sourceTree = "<group>"; };
 		B3583BCA212005EF0009762F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3583BCC2121168B0009762F /* Rideshield.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rideshield.entitlements; sourceTree = "<group>"; };
@@ -43,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B350BF8F213634CB0089E2CC /* Contacts.framework in Frameworks */,
+				B350BF90213634CB0089E2CC /* ContactsUI.framework in Frameworks */,
 				4E1121D1007E1EB7A377839A /* Pods_Rideshield.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +59,8 @@
 		8B6DB80FE0B6111C49A14D81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B350BF8D213634CA0089E2CC /* Contacts.framework */,
+				B350BF8E213634CA0089E2CC /* ContactsUI.framework */,
 				B36489F42130BDE700ECDC54 /* Alamofire.framework */,
 				0BA01C9C3B84CF2F78D77B69 /* Pods_Rideshield.framework */,
 			);

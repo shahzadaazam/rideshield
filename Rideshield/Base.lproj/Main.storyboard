@@ -117,9 +117,6 @@
                                 <state key="normal" title="SIGN UP WITH GOOGLE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="hNd-Gx-sN6" kind="show" id="JTF-xk-nY3"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCu-DF-JM9">
                                 <rect key="frame" x="16" y="477" width="343" height="55"/>
@@ -131,9 +128,6 @@
                                 <state key="normal" title="SIGN UP WITH FACEBOOK">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="hNd-Gx-sN6" kind="show" id="OeK-4D-Xle"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="Iv0-sI-lny">
                                 <rect key="frame" x="16" y="20" width="26" height="23"/>
@@ -204,9 +198,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ed6-Wu-NYi" userLabel="Back button">
                                 <rect key="frame" x="16" y="20" width="26" height="22"/>
                                 <state key="normal" image="Back"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="jLu-pP-jdc"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -291,9 +282,6 @@
                                 <state key="normal" title="LOG IN WITH GOOGLE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="hNd-Gx-sN6" kind="show" id="XDp-Rh-5VU"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGY-7Q-uCX">
                                 <rect key="frame" x="16" y="477" width="343" height="55"/>
@@ -305,9 +293,6 @@
                                 <state key="normal" title="LOG IN WITH FACEBOOK">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="hNd-Gx-sN6" kind="show" id="L2q-Na-O7a"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="E1g-Fc-OGX">
                                 <rect key="frame" x="16" y="20" width="26" height="24"/>
@@ -357,9 +342,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dub-Ic-Cfh" userLabel="Back button">
                                 <rect key="frame" x="16" y="20" width="26" height="23"/>
                                 <state key="normal" image="Back"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="sYe-MB-nbt"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPl-lS-YhC" userLabel="Email Text Field">
                                 <rect key="frame" x="128" y="183" width="231" height="30"/>
@@ -558,6 +540,7 @@
                         <outlet property="ridingCheck" destination="52j-pM-dCV" id="72L-kT-XVy"/>
                         <outlet property="ridingNotification" destination="0TN-cz-kFd" id="92l-oq-3cQ"/>
                         <outlet property="speedMetric" destination="uZq-8i-G2m" id="3fr-Gt-3uu"/>
+                        <segue destination="kYa-EO-Uev" kind="show" identifier="mainToCrashSegue" id="p6h-qV-FAJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HEi-9u-UVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -628,6 +611,7 @@
                     </view>
                     <connections>
                         <outlet property="countdownTimer" destination="jav-C1-jYG" id="Mt5-KQ-uOJ"/>
+                        <segue destination="hNd-Gx-sN6" kind="show" identifier="crashToMainSegue" id="E7X-87-Cf5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5Q-0g-3iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -648,7 +632,6 @@
         <image name="splash2" width="640" height="1136"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XDp-Rh-5VU"/>
-        <segue reference="sYe-MB-nbt"/>
+        <segue reference="p6h-qV-FAJ"/>
     </inferredMetricsTieBreakers>
 </document>

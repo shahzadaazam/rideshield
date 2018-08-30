@@ -16,12 +16,16 @@ class CrashViewController : UIViewController {
     var count = 20
     var dismissed = false
     var crashTimer : Timer?
+    var contactsDict = [String: [String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Testing
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        print(contactsDict)
+        
+        //Testing
+        //self.presentingViewController?.dismiss(animated: true, completion: nil)
     
         print("I'm in crashviewcontroller")
         if crashTimer == nil {
@@ -58,21 +62,29 @@ class CrashViewController : UIViewController {
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
             
-            let parameters: Parameters = [
-                "To": "+18134814474",
-                "From": "+18135318998",
-                "Body": "Hello from RideShield"
-            ]
-            
-            Alamofire.request("https://api.twilio.com/2010-04-01/Accounts/ACbd6bed42bef062e4e8f074e021da70fa/Messages.json", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                print(response)
+            //Loop through contact phone numbers
+            for (name, phoneNumbersArray) in contactsDict
+            {
+                for phoneNumber in phoneNumbersArray
+                {
+                    let parameters: Parameters = [
+                        "To": phoneNumber,
+                        "From": "+18135318998",
+                        "Body": "Hello " + name + ". This is an emergency message from the RideShield app."
+                    ]
+                    
+                    Alamofire.request("https://api.twilio.com/2010-04-01/Accounts/ACbd6bed42bef062e4e8f074e021da70fa/Messages.json", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        print(response)
+                    }
+                }
             }
             
             //Displaying alert
             let alert = UIAlertController(title: "Hang Tight", message: "Your emergency contacts have been notified of the crash with your exact location. Help should arrive soon.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 //Navigating to main screen
-                self.backToMain()
+                self.performSegue(withIdentifier: "crashToMainSegue", sender: self)
+                //self.backToMain()
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -95,15 +107,16 @@ class CrashViewController : UIViewController {
             crashTimer = nil
             
             //Navigating to main screen
-            self.backToMain()
+            self.performSegue(withIdentifier: "crashToMainSegue", sender: self)
+            //self.backToMain()
         }
     }
     
-    func backToMain() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let MainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController")
-        self.present(MainViewController, animated: true, completion: nil)
-    }
+//    func backToMain() {
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let MainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController")
+//        self.present(MainViewController, animated: true, completion: nil)
+//    }
     
 }
 
