@@ -44,6 +44,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     var isAutomotive: Bool = false
     var isStationary: Bool = false
     var isUnknown: Bool = false
+    var yaw: Double = 0.0
     
     //Crash
     var didCrash: Bool = false
@@ -164,10 +165,22 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
             }
         }
         
+        //Yaw
+        motionManager.startDeviceMotionUpdates(to: OperationQueue.current! ) {   (data, error) in
+            if let myData = data
+            {
+                let quat = myData.attitude.quaternion
+                self.yaw = asin(2*(quat.x*quat.z - quat.w*quat.y));
+                //print("Yaw is: ", self.yaw)
+                
+            }
+        }
+        
         //Accelerometer
         motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
             if let myData = data
             {
+                
                 self.currentAccX = myData.acceleration.x
                 if fabs(myData.acceleration.x) > fabs(self.currentMaxAccelX)
                 {
@@ -185,9 +198,6 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
                 {
                     self.currentMaxAccelZ = myData.acceleration.z
                 }
-                //print(myData)
-                
-                //print(String(self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0))
                 
                 //Riding Detection
                 if (!self.isAutomotive)
@@ -202,19 +212,18 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
                     
                     //Displaying total Gforce metric
                     self.currentAbsoluteGforce = (pow(self.currentAccX,2) + pow(self.currentAccY,2) + pow(self.currentAccZ,2)).squareRoot()
-                    self.gforceMetric.text = String(format: "%.2f", self.currentAbsoluteGforce)
+                    self.gforceMetric.text = String(format: "%.1f", self.currentAbsoluteGforce)
                     
                     //Displaying speed metric
                     //Change to mph
                     self.currentSpeed = self.locationManager.location?.speed == -1 ? 0.0 : (self.locationManager.location?.speed)!*2.2369
-                    //self.speedMetric.text = String(format: "%.2f", self.locationManager.location?.speed == -1 ? 0.0 : self.locationManager.location?.speed ?? 0)
-                    self.speedMetric.text = String(format: "%.2f", self.currentSpeed)
+                    self.speedMetric.text = String(format: "%.1f", self.currentSpeed)
                     
                     //Displaying distance metric
-                    self.distanceMetric.text = String(format: "%.2f", self.traveledDistance)
+                    self.distanceMetric.text = String(format: "%.1f", self.traveledDistance*0.000621371)    //Converting to miles for display
                     
                     //Printing lean angle
-                    self.leanangleMetric.text = String(format: "%.2f", self.currentRotX)
+                    self.leanangleMetric.text = String(format: "%.1f", self.yaw*57.2958)    //Converting from radians to degrees
                     
                     
                     //Firestore
@@ -237,8 +246,11 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
                         
                         "didCrash": self.didCrash,
                         "isAutomotive": self.isAutomotive,
+                        "isStationary": self.isStationary,
+                        "isUnknown": self.isUnknown,
                         "currentSpeed": self.currentSpeed,
                         "currentAbsoluteGforce": self.currentAbsoluteGforce,
+                        "currentYaw": self.yaw,
                         "distanceTraveled": self.traveledDistance,
                         
                         "latitude": self.latitude,

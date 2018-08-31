@@ -24,6 +24,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
         
         scrollView.delegate = self
         
+        //Getting screen width and height
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
         //Adding borders to buttons
         loginButton.layer.borderWidth = 1.0
         loginButton.layer.borderColor = UIColor.white.cgColor
@@ -31,7 +36,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
         //First heading
         let heading1 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
         heading1.textAlignment = .center
-        heading1.text = "UNIQUE VALUE PROPOSITION"
+        heading1.text = "RIDE WITH PEACE OF MIND"
         heading1.textColor = UIColor.white
         heading1.font = UIFont.boldSystemFont(ofSize: 20.0)
         
@@ -40,15 +45,17 @@ class ViewController: UIViewController, UIScrollViewDelegate, GIDSignInUIDelegat
         heading1.frame = CGRect(x: scrollView.frame.midX-167, y: (scrollView.frame.height/2)-10, width: 300, height: 20)
         
         //First subheading
-        let subheading1 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
+        let subheading1 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         subheading1.textAlignment = .center
-        subheading1.text = "Text to explain what the app does"
+        subheading1.text = "Accurate Crash Detection and Prompt Emergency Contacts Notification"
         subheading1.textColor = UIColor.white
-        subheading1.font = UIFont.systemFont(ofSize: 18.0)
+        subheading1.font = UIFont.systemFont(ofSize: 17.0)
+        subheading1.lineBreakMode = .byWordWrapping
+        subheading1.numberOfLines = 2
         
         scrollView.addSubview(subheading1)
         
-        subheading1.frame = CGRect(x: scrollView.frame.midX-168, y: (scrollView.frame.height/2)+50, width: 300, height: 20)
+        subheading1.frame = CGRect(x: scrollView.frame.midX-168, y: (scrollView.frame.height/2)+50, width: 300, height: 50)
         
         //Second heading
         let heading2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
