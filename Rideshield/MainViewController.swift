@@ -21,7 +21,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     //Instance variables
     var timer: Timer?
     var logData = [String: Any]()
-    var contactsDict = [String: [String]]()
+    var contactsDict = [String: Any?]()
     var timerFlag = false
     
     //Acceleration
@@ -79,12 +79,6 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.presentingViewController?.dismiss(animated: true, completion: nil)
-        
-        //Testing for contacts selection
-        selectContacts()
-        //Testing ends
-        
         //Timer
         scheduledTimerWithTimeInterval()
         
@@ -96,6 +90,24 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
         db.settings = settings
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        //Import contacts from firestore OR select new if they don't exist
+        db.collection(String(uid)).document("Contacts").getDocument { (document, error) in
+            if let document = document, document.exists {
+                //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                //print("Document data: \(dataDescription)")
+                self.contactsDict = document.data()!
+                print(self.contactsDict)
+            } else {
+                //Show alert to select emergency contacts
+                let contactsAlert = UIAlertController(title: "Please select your Emergency Contacts", message: "Emergency contacts are notified with your exact location for medical help in the event of a crash.", preferredStyle: .alert)
+                contactsAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    //Opening contacts for selection
+                    self.openContacts()
+                }))
+                self.present(contactsAlert, animated: true, completion: nil)
+            }
+        }
         
         //Location
         locationManager.delegate = self
@@ -275,11 +287,8 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
                         
                         print("Crash detected!")
                         self.didCrash = true;
-                        
                         self.performSegue(withIdentifier: "mainToCrashSegue", sender: self)
-                        //let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        //let CrashViewController = storyBoard.instantiateViewController(withIdentifier: "CrashViewController")
-                        //self.present(CrashViewController, animated: true, completion: nil)
+
                     }
                 }
             }
@@ -323,15 +332,15 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     
     @objc func updateFlag()
     {
-        print("Im in Flag update function pre. Flag is: ", timerFlag)
+        //print("Im in Flag update function pre. Flag is: ", timerFlag)
         timerFlag = (timerFlag == false) ? true : false
-        print("Im in Flag update function post. Flag is: ", timerFlag)
+        //print("Im in Flag update function post. Flag is: ", timerFlag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let crashViewController = segue.destination as! CrashViewController
-        crashViewController.contactsDict = self.contactsDict
+        crashViewController.contactsDict = self.contactsDict as! [String : [String]]
     }
     
     func openContacts()
@@ -345,17 +354,24 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     func contactPickerDidCancel(_ picker: CNContactPickerViewController)
     {
         print("I'm in contactPickerCancel")
-        picker.dismiss(animated: true)
+        picker.dismiss(animated: false)
         {
-        
+            print("picker dismissed")
+            
+            //Open contacts again
+            let alert = UIAlertController(title: "Please select your Emergency Contacts", message: "Emergency contacts must be selected to proceed. Emergency contacts are notified with your exact location for medical help in the event of a crash.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                //Opening contacts again for selection
+                self.openContacts()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact])
     {
         print("I'm in contactPicker")
-        //When user selects any contact
-        
+        //Looping through contacts and storing contacts in dictionary
         for contact in contacts
         {
             var phoneNumbersArray: [String] = []
@@ -363,14 +379,21 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
             
             for phoneNumber in contact.phoneNumbers
             {
-//                contactsDict[full_name] = contactsDict[full_name] != "" ? contactsDict[full_name]! + ", " + phoneNumber.value.stringValue : phoneNumber.value.stringValue
-//
-//                print(contactsDict[full_name]!)
                 phoneNumbersArray.append(phoneNumber.value.stringValue)
             }
             contactsDict[full_name] = phoneNumbersArray
         }
         print(contactsDict)
+        
+        //Save Contacts dictionary to firestore
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection(String(uid)).document("Contacts").setData(self.contactsDict) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Contacts dict added")
+            }
+        }
     }
     
     func selectContacts()
