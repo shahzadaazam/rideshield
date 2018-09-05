@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import CoreLocation
 
 class CrashViewController : UIViewController {
     
@@ -17,6 +18,8 @@ class CrashViewController : UIViewController {
     var dismissed = false
     var crashTimer : Timer?
     var contactsDict = [String: [String]]()
+    var latitude: String = ""
+    var longitude: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +73,7 @@ class CrashViewController : UIViewController {
                     let parameters: Parameters = [
                         "To": phoneNumber,
                         "From": "+18135318998",
-                        "Body": "Hello " + name + ". This is an emergency message from the RideShield app."
+                        "Body": "Hello " + name + ". This is an emergency message from the RideShield app. Your contact has been in a motorcycle crash at location https://www.google.com/maps/search/?api=1&query=" + latitude + "," + longitude + " .Please arrange for emergency help."
                     ]
                     
                     Alamofire.request("https://api.twilio.com/2010-04-01/Accounts/ACbd6bed42bef062e4e8f074e021da70fa/Messages.json", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in

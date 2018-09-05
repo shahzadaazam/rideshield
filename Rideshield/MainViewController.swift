@@ -353,6 +353,8 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
     {
         let crashViewController = segue.destination as! CrashViewController
         crashViewController.contactsDict = self.contactsDict as! [String : [String]]
+        crashViewController.longitude = self.longitude
+        crashViewController.latitude = self.latitude
     }
     
     func openContacts()
