@@ -41,11 +41,29 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WpV-TI-OUd">
+                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WpV-TI-OUd">
                                 <rect key="frame" x="168" y="400" width="39" height="37"/>
                                 <color key="currentPageIndicatorTintColor" red="1" green="0.0" blue="0.30100786559999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLM-ws-XID">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accurate Crash Detection and Prompt Emergency Contacts Notification" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQ3-pT-Htt">
+                                <rect key="frame" x="34" y="220" width="306" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="1ag-lh-4cC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RIDE WITH PEACE OF MIND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6O-IN-UXV">
+                                <rect key="frame" x="52" y="180" width="270" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="Xxu-aT-4YU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLM-ws-XID">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="372"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uz8-9K-Amt">
@@ -66,18 +84,24 @@
                             <constraint firstItem="Uz8-9K-Amt" firstAttribute="trailing" secondItem="vHL-dM-kNb" secondAttribute="trailing" id="2b3-jN-mdC"/>
                             <constraint firstItem="Uz8-9K-Amt" firstAttribute="leading" secondItem="vHL-dM-kNb" secondAttribute="leading" id="5fR-Nl-ZDK"/>
                             <constraint firstItem="WpV-TI-OUd" firstAttribute="centerX" secondItem="ryD-Yr-BjH" secondAttribute="centerX" id="5p8-gT-nBx"/>
+                            <constraint firstItem="N6O-IN-UXV" firstAttribute="centerX" secondItem="cQ3-pT-Htt" secondAttribute="centerX" id="6sY-nV-v7p"/>
+                            <constraint firstItem="cQ3-pT-Htt" firstAttribute="top" secondItem="N6O-IN-UXV" secondAttribute="bottom" constant="14" id="Boj-jE-B7i"/>
                             <constraint firstItem="WpV-TI-OUd" firstAttribute="top" secondItem="xLM-ws-XID" secondAttribute="bottom" constant="28" id="C93-Zy-G5p"/>
                             <constraint firstItem="vHL-dM-kNb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="EEc-0P-GG3"/>
                             <constraint firstItem="Uz8-9K-Amt" firstAttribute="baseline" secondItem="vHL-dM-kNb" secondAttribute="baseline" id="EJ2-iy-WdJ"/>
                             <constraint firstItem="vHL-dM-kNb" firstAttribute="top" secondItem="ryD-Yr-BjH" secondAttribute="bottom" constant="30" id="Ebr-4A-e21"/>
+                            <constraint firstItem="cQ3-pT-Htt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="JNI-bv-SAe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vHL-dM-kNb" secondAttribute="trailing" constant="20" id="VRe-3k-KXd"/>
                             <constraint firstItem="xLM-ws-XID" firstAttribute="trailing" secondItem="fzs-pO-MEC" secondAttribute="trailing" id="Xjq-8T-LTS"/>
+                            <constraint firstItem="N6O-IN-UXV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="Ynn-vM-Bms"/>
                             <constraint firstItem="fzs-pO-MEC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bw1-FH-AEX"/>
+                            <constraint firstItem="cQ3-pT-Htt" firstAttribute="centerX" secondItem="WpV-TI-OUd" secondAttribute="centerX" id="dgD-76-r6L"/>
                             <constraint firstItem="xLM-ws-XID" firstAttribute="top" secondItem="fzs-pO-MEC" secondAttribute="top" id="e2h-7a-Wqw"/>
                             <constraint firstItem="ryD-Yr-BjH" firstAttribute="trailing" secondItem="vHL-dM-kNb" secondAttribute="trailing" id="eXS-YJ-UeW"/>
                             <constraint firstItem="ryD-Yr-BjH" firstAttribute="leading" secondItem="vHL-dM-kNb" secondAttribute="leading" id="h8B-oM-FT4"/>
                             <constraint firstItem="fzs-pO-MEC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nla-fU-QQ1"/>
                             <constraint firstItem="fzs-pO-MEC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="rPI-aS-5wQ"/>
+                            <constraint firstItem="N6O-IN-UXV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="52" id="tX8-Ly-Xfo"/>
                             <constraint firstItem="xLM-ws-XID" firstAttribute="leading" secondItem="fzs-pO-MEC" secondAttribute="leading" id="wXb-qn-QFm"/>
                             <constraint firstItem="ryD-Yr-BjH" firstAttribute="top" secondItem="WpV-TI-OUd" secondAttribute="bottom" constant="40" id="xVc-WI-dCD"/>
                             <constraint firstItem="Uz8-9K-Amt" firstAttribute="top" secondItem="ryD-Yr-BjH" secondAttribute="bottom" constant="30" id="xbo-4M-Syo"/>

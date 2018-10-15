@@ -113,12 +113,15 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
         //Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.distanceFilter = 10
         
         //Sensors
+    
+        //Motion Activity permissions
     
         //Setting accelerometer and gyro update interval
         motionManager.accelerometerUpdateInterval = 0.01
@@ -200,7 +203,7 @@ class MainViewController : UIViewController, CLLocationManagerDelegate, CNContac
                 }
                 
                 //Riding Detection
-                if (!self.isAutomotive)
+                if (self.isAutomotive && CLLocationManager.authorizationStatus() == .authorizedWhenInUse)
                 {
                     //print("Riding!")
                     self.ridingNotification.setTitle("RIDING", for: .normal)
